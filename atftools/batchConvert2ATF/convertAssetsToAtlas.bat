@@ -1,0 +1,1 @@
+BatchConvertATLAS.bat "..\..\bin\assets"

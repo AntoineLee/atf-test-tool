@@ -1,0 +1,1 @@
+BatchConvertATF.bat "..\..\bin\assets"
