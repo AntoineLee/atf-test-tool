@@ -4,18 +4,18 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>shopReelShadow.png</key>
+            <key>int_shop_upgrades_prepare_prepare_device_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{0,0},{758,472}}</string>
+                <string>{{0,0},{185,165}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{758,472}}</string>
+                <string>{{0,0},{185,165}}</string>
                 <key>sourceSize</key>
-                <string>{758,472}</string>
+                <string>{185,165}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -23,13 +23,13 @@
             <key>format</key>
             <integer>2</integer>
             <key>realTextureFileName</key>
-            <string>shopReelShadow.png</string>
+            <string>int_shop_upgrades_prepare_prepare_device_04.png</string>
             <key>size</key>
-            <string>{1024,512}</string>
+            <string>{256,256}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:af60cd3a74e586077330e99a59131f2a$</string>
+            <string>$TexturePacker:SmartUpdate:c551e26e884974eb805317b8db1dd678$</string>
             <key>textureFileName</key>
-            <string>shopReelShadow.png</string>
+            <string>int_shop_upgrades_prepare_prepare_device_04.png</string>
         </dict>
     </dict>
 </plist>

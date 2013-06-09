@@ -87,6 +87,7 @@ package apollo.assetmanager
 		
 		public function setAsset(_name:String, _asset:*):void 
 		{
+			trace("SET ASSET");
 			assetLib[_name] = _asset;
 		}
 	}

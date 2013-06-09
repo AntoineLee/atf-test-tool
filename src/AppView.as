@@ -20,6 +20,7 @@ package
 		private var assetListScreen:ScreenNavigatorItem;
 		private var selectAsset:ScreenNavigatorItem;
 		private var assetDisplay:ScreenNavigatorItem;
+		private var showAllAssets:ScreenNavigatorItem;
 		
 		
 		
@@ -46,10 +47,13 @@ package
 			selectAsset = new ScreenNavigatorItem(DisplayAssetList, { complete: AppConfig.SELECT_DISPLAY_OPTIONS, listSelected: selectedOption }, {assets:this.assets});
 			this.navigator.addScreen(AppConfig.SELECT_ASSET_OPTION, selectAsset);
 			
+			showAllAssets = new ScreenNavigatorItem(DisplayAllAssets, { complete: AppConfig.SELECT_DISPLAY_OPTIONS, listSelected: selectedOption }, {assets:this.assets});
+			this.navigator.addScreen(AppConfig.SHOW_ALL_ASSET_DISPLAY, showAllAssets);
+			
 			assetDisplay = new ScreenNavigatorItem(DisplayAsset, { complete: AppConfig.SELECT_ASSET_OPTION });
 			this.navigator.addScreen(AppConfig.SHOW_ASSET_DISPLAY, assetDisplay);
 			
-			this.navigator.showScreen(AppConfig.SELECT_ASSET_OPTION);
+			this.navigator.showScreen(AppConfig.SELECT_DISPLAY_OPTIONS);
 			
 			var trans:ScreenSlidingStackTransitionManager = new ScreenSlidingStackTransitionManager(this.navigator);
 		}
@@ -60,6 +64,9 @@ package
 				case "List View":
 					trace("list view init");
 					this.navigator.showScreen(AppConfig.SELECT_ASSET_OPTION);
+					break;
+				case "Free View":
+					this.navigator.showScreen(AppConfig.SHOW_ALL_ASSET_DISPLAY);
 					break;
 				default:
 					assetDisplay.properties = {displayData:selectedObjInfo};

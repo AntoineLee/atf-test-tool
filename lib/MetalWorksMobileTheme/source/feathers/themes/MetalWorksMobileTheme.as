@@ -884,7 +884,7 @@ package feathers.themes
 			input.paddingTop = input.paddingBottom = 12 * this.scale;
 			input.paddingLeft = input.paddingRight = 16 * this.scale;
 			input.textEditorProperties.fontFamily = "Helvetica";
-			input.textEditorProperties.fontSize = 30 * this.scale;
+			input.textEditorProperties.fontSize = 32 * this.scale;
 			input.textEditorProperties.color = LIGHT_TEXT_COLOR;
 		}
 

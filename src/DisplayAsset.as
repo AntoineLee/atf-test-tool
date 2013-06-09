@@ -67,7 +67,8 @@ package
 		public function setContainerContent():void 
 		{
 			var assetManager:AssetManager = AssetManager.getInstance();
-			var texture:Texture = assetManager.getTextureFromAtf(this.displayData.url);
+			var scale = TextureScaleHandler.getScaleByName(this.displayData.name.split(".").splice(0, 1)[0]);
+			var texture:Texture = assetManager.getTextureFromAtf(this.displayData.url, scale);
 			var image:Image = new Image(texture);
 			
 			image.x = 20;
@@ -92,7 +93,6 @@ package
 		 
 		public function set displayData( value:Object ):void
 		{
-			trace("SET DISPLAY DATA");
 			this._displayData = value;
 			this.invalidate( INVALIDATION_FLAG_DATA );
 			

@@ -4,7 +4,11 @@ package
 	import feathers.controls.Header;
 	import feathers.controls.List;
 	import feathers.controls.Screen;
+	import feathers.controls.text.StageTextTextEditor;
+	import feathers.controls.TextInput;
+	import feathers.core.ITextEditor;
 	import feathers.data.ListCollection;
+	import feathers.events.FeathersEventType;
 	import feathers.skins.StandardIcons;
 	import starling.display.DisplayObject;
 	import starling.events.Event;
@@ -19,6 +23,9 @@ package
 		private var titleHeader:Header;
 		private var list:List;
 		private var backBtn:Button;
+		private var bottomHeader:Header;
+		private var input:TextInput;
+		private var clear:Button;
 
 		protected var _assets:Array;
 
@@ -32,19 +39,29 @@ package
 		override protected function draw():void 
 		{
 			titleHeader.width = actualWidth;
+			bottomHeader.width = actualWidth;
 			
-			list.y = titleHeader.height;
+			//input.height = bottomHeader.height -2;
+			//titleHeader.height = titleHeader.height + 10;
+			//input.height = 50;
+			
+			input.width = (actualWidth - 50);
+			
+			bottomHeader.y = titleHeader.height;
+			
+			list.y = titleHeader.height + bottomHeader.height;
 			list.width = actualWidth;
-			list.height = actualHeight - titleHeader.height;
-			
-			trace("DRAW");
+			list.height = (actualHeight - titleHeader.height) - bottomHeader.height;
 		}
 		
 		override protected function initialize():void 
 		{
+			bottomHeader = new Header();
+			
+			this.addChild(bottomHeader);
+			
 			titleHeader = new Header();
 			titleHeader.title = "Select Asset";
-			
 			this.addChild(titleHeader);
 			
 			this.list = new List();
@@ -54,22 +71,70 @@ package
 				return StandardIcons.listDrillDownAccessoryTexture;
 			};
 			
+			this.clear = new Button();
+			this.clear.label = "CLEAR";
+			this.addChild(this.clear);
+			this.clear.addEventListener(Event.TRIGGERED, onClearPressed);
+			
 			this.backBtn = new Button();
 			this.backBtn.label = "BACK";
 			this.addChild(this.backBtn);
 			this.backBtn.addEventListener(Event.TRIGGERED, onBackPressed);
 			
-			var item:Vector.<DisplayObject> = new Vector.<DisplayObject>();
-			item.push(this.backBtn);
-			this.titleHeader.leftItems = item;
+			input = new TextInput();
+			input.text = "Search";
+			input.addEventListener( Event.CHANGE, input_changeHandler );
+			input.addEventListener( FeathersEventType.FOCUS_OUT, input_focusOutHandler );
+			
+			this.addChild( input );
+			
+			var HeaderleftItems:Vector.<DisplayObject> = new Vector.<DisplayObject>();
+			var BottomLeftItems:Vector.<DisplayObject> = new Vector.<DisplayObject>();
+			var BottomRightItems:Vector.<DisplayObject> = new Vector.<DisplayObject>();
+			BottomLeftItems.push(input);
+			BottomRightItems.push(clear);
+			HeaderleftItems.push(backBtn);
+			this.titleHeader.leftItems = HeaderleftItems;
+			this.bottomHeader.leftItems = BottomLeftItems;
+			this.bottomHeader.rightItems = BottomRightItems;
 			
 			list.addEventListener(Event.CHANGE, onListChange);
 			this.addChild(list);
 		}
 		
+		private function input_focusOutHandler(e:Event):void 
+		{
+			list.dataProvider = new ListCollection(this.assets);
+			trace("FOCUS OFF");
+		}
+		
+		private function input_changeHandler(e:Event):void 
+		{
+			if (!input.text) {
+				list.dataProvider = new ListCollection(this.assets);
+			}else {
+				var showList:Array = [];
+				for (var i:int = 0; i < this.assets.length; i++) 
+				{
+					var obj:Object = this.assets[i];
+					var name:String = obj.name;
+					if (name.indexOf(input.text) != -1) {
+						showList.push(obj);
+					}
+				}
+				list.dataProvider = new ListCollection(showList);
+			}
+			
+		}
+		
 		private function onBackPressed(e:Event):void 
 		{
 			dispatchEventWith("complete");
+		}
+		
+		private function onClearPressed(e:Event):void 
+		{
+			input.text = "";
 		}
 		
 		private function onListChange(e:Event):void 

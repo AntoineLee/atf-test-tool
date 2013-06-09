@@ -5,7 +5,7 @@ call bat\SetupApplication.bat
 
 :target
 ::goto desktop
-goto android-debug
+::goto android-debug
 ::goto android-test
 ::set INTERPRETER=-interpreter
 ::goto ios-debug
@@ -16,7 +16,7 @@ goto android-debug
 
 ::set SCREEN_SIZE=NexusOne
 ::set SCREEN_SIZE=iPhoneRetina
-set SCREEN_SIZE=iPad
+set SCREEN_SIZE=iPhone
 
 :desktop-run
 echo.
